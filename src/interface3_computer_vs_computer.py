@@ -1,23 +1,37 @@
-import pygame # Importa a biblioteca pygame para desenvolver jogos
-import sys     # Importa o módulo sys para interagir com o sistema operacional
-import random  # Importa o módulo random para gerar números aleatórios
+import os
+import pygame   # Biblioteca para desenvolver jogos
+import sys      # Interação com o sistema
+import random   # Para gerar números aleatórios
+
+# raiz do repo (.../Pahtum-Game)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def asset_path(*parts):
+    return os.path.join(BASE_DIR, "assets", *parts)
 
 # Inicialização do Pygame
 pygame.init()
+pygame.font.init()
+try:
+    pygame.mixer.init()
+except Exception as e:
+    print("Aviso: não foi possível iniciar o áudio:", e)
 
 # Configurações da tela
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600 # Define as dimensões da tela
-BG_COLOR = (0, 0, 0)  # Define a cor de fundo da tela como preto
-BUTTON_COLOR = (235, 26, 235) # Define a cor dos botões
-TEXT_COLOR = (255, 255, 255)  # Define a cor do texto
-BOARD_SIZE = 7  # Define o tamanho do tabuleiro como 7x7
-SQUARE_SIZE = 80  # Define o tamanho de cada quadrado no tabuleiro
-DARK_SQUARE_COLOR = (139, 69, 19) # Define a cor dos quadrados escuros
-LIGHT_SQUARE_COLOR = (245, 222, 179) # Define a cor dos quadrados claros
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+BG_COLOR = (0, 0, 0)  
+BUTTON_COLOR = (235, 26, 235)
+TEXT_COLOR = (255, 255, 255)
+BOARD_SIZE = 7
+SQUARE_SIZE = 80
+DARK_SQUARE_COLOR = (139, 69, 19)
+LIGHT_SQUARE_COLOR = (245, 222, 179)
 
 # Fontes
-font_path = pygame.font.Font(None, 60) # Define a fonte para o título
-font_button = pygame.font.Font(None, 40) # Define a fonte para os botões
+# Agora usando a fonte personalizada do repo (fonte.ttf)
+font_title = pygame.font.Font(asset_path("fonts", "fonte.ttf"), 60)
+font_button = pygame.font.Font(asset_path("fonts", "fonte.ttf"), 40)
+
 
 # Classe para representar o jogo
 class PathumGame:

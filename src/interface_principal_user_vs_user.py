@@ -1,26 +1,38 @@
+import os
 import pygame
 import sys
-import random
-import os 
 
+# raiz do repo (.../Pahtum-Game)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+def asset_path(*parts):
+    return os.path.join(BASE_DIR, "assets", *parts)
 
-# Carregar imagens
-tela_ajuda = pygame.image.load("/Users/catarinadias/Desktop/trabalho_PATHUM/tela_ajuda.jpg")
-tela1 = pygame.image.load("/Users/catarinadias/Desktop/trabalho_PATHUM/tela1.jpg")
-tela2 = pygame.image.load("/Users/catarinadias/Desktop/trabalho_PATHUM/tela2.jpg")
-tela3 = pygame.image.load("/Users/catarinadias/Desktop/trabalho_PATHUM/tela3.jpg")
-music_file_path = "/Users/catarinadias/Desktop/trabalho_PATHUM/Subway-Surfers-Theme-Sound-Effect.mp3"
+# Inicializar pygame
 pygame.init()
-pygame.mixer.init()
+pygame.font.init()
+try:
+    pygame.mixer.init()
+except Exception as e:
+    print("Aviso: não foi possível iniciar o áudio:", e)
 
-# Carregar música
-pygame.mixer.music.load(music_file_path)
-pygame.mixer.music.play(-1)
+# === ASSETS ===
+# Imagens
+tela_ajuda = pygame.image.load(asset_path("images", "tela_ajuda.png"))
+tela1 = pygame.image.load(asset_path("images", "tela1.jpg"))
+tela2 = pygame.image.load(asset_path("images", "tela2.jpg"))
+tela3 = pygame.image.load(asset_path("images", "tela3.jpg"))
 
-# Carregar fonte personalizada
-font_path = pygame.font.Font("/Users/catarinadias/Desktop/trabalho_PATHUM/PermanentMarker-Regular.ttf", 40)
-custom_font = pygame.font.Font("/Users/catarinadias/Desktop/trabalho_PATHUM/PermanentMarker-Regular.ttf",40)
+# Música
+try:
+    pygame.mixer.music.load(asset_path("audio", "music.mp3"))
+    pygame.mixer.music.play(-1)  # -1 = loop infinito
+except Exception as e:
+    print("Aviso: não foi possível carregar música:", e)
+
+# Fonte
+custom_font = pygame.font.Font(asset_path("fonts", "fonte.ttf"), 40)
+
 # Inicialização do Pygame
 
 
